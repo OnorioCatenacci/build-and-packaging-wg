@@ -26,7 +26,7 @@ jobs:
     needs: install_curl
     runs-on: windows-latest
     steps:
-      - run: curl -O https://github.com/elixir-lang/elixir/releases/download/v${{ env.elixir_version }}/Precompiled.zip
+      - run: curl -O "https://github.com/elixir-lang/elixir/releases/download/v${{ env.elixir_version }}/Precompiled.zip"
 
 
   # create_erlang_package:
