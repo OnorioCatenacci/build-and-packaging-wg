@@ -1,0 +1,35 @@
+<#
+.SYNOPSIS
+An install script for installing Erlang silently on the machine via ChocolateyNuGet
+
+.NOTES
+Author: Onorio Catenacci - catenacci@ieee.org
+Version: <%= ChocoUtil.get_current_version("Erlang_x86") %>
+#>
+
+$package = 'erlang'
+$version = '<%= ChocoUtil.get_current_version("Erlang_x86") %>'
+$erl_version = '<%= ChocoUtil.get_current_erts_version("Erlang_x86") %>'
+
+$params = @{
+  PackageName = $package
+  FileType = 'exe'
+  SilentArgs = '/S'
+  Url = "https://www.erlang.org/download/otp_win32_$version.exe"
+  CheckSum = '<%= ChocoUtil.get_file_and_sha256("Erlang_x86") %>' 
+  CheckSumType = 'sha256'
+  Url64 = "https://www.erlang.org/download/otp_win64_$version.exe"
+  CheckSum64 = '<%= ChocoUtil.get_file_and_sha256("Erlang_x64") %>'
+  CheckSumType64 = 'sha256'
+  validExitCodes = @(0)
+}
+
+Install-ChocolateyPackage @params
+
+$baseErlangPath = "$env:ProgramFiles/erl$erl_version/erts-$erl_version/bin"
+
+Generate-BinFile "erl" -path "$baseErlangPath/erl.exe"
+Generate-BinFile "werl" -path "$baseErlangPath/werl.exe"
+Generate-BinFile "erlc" -path "$baseErlangPath/erlc.exe"
+Generate-BinFile  "escript" -path "$baseErlangPath/escript.exe"
+Generate-BinFile "dialyzer" -path "$baseErlangPath/dialyzer.exe"

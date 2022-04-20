@@ -11,20 +11,23 @@ on:
   
   workflow_dispatch: 
 
-
 jobs:
   install_curl:
     runs-on: windows-latest
     steps:
-      - run: choco install curl
+      run: |
+        choco install curl
+        echo "elixir_version=1.13.4" >> $GITHUB_ENV
+        echo "erlang_version=24.3.3" >> $GITHUB_ENV
+        echo "erts_version=12.3.1" >> $GITHUB_ENV
+        echo "rebar3_version=3.18.0" >> $GITHUB_ENV
+
 
   create_elixir_package:
     needs: install_curl
     runs-on: windows-latest
     steps:
-      # We need curl to fetch the precompiled.zip file.
-      # - run: choco install curl
-      - run: curl -O https://github.com/elixir-lang/elixir/releases/download/v1.13.4/Precompiled.zip
+      - run: curl -O https://github.com/elixir-lang/elixir/releases/download/v${{ env.elixir_version }}/Precompiled.zip
 
 
   # create_erlang_package:
