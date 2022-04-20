@@ -10,22 +10,27 @@ on:
     types: [published]
 
 jobs:
-  create-elixir-release:
+  install_curl:
+    runs-on: windows-latest
+    steps:
+      -run: choco install curl
+
+  create_elixir_package:
+    needs: install_curl
     runs-on: windows-latest
     steps:
       # We need curl to fetch the precompiled.zip file.
-      - run: choco install curl
       - run: curl -O https://github.com/elixir-lang/elixir/releases/download/v1.13.4/Precompiled.zip
 
 
-  create-erlang-package:
-    runs-on: windows-latest
-    steps:
-      -run: choco install curl
+  # create_erlang_package:
+  #   needs: install_curl
+  #   runs-on: windows-latest
+  #   steps:
   
-  create-rebar3-package:
-    runs-on: windows-latest
-    steps: 
-      -run: choco install curl
+  # create_rebar3_package:
+  #   needs: install_curl
+  #   runs-on: windows-latest
+  #   steps: 
 
 
