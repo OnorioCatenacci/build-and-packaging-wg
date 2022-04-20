@@ -15,12 +15,11 @@ jobs:
   install_curl:
     runs-on: windows-latest
     steps:
-      run: |
-        choco install curl
-        echo "elixir_version=1.13.4" >> $GITHUB_ENV
-        echo "erlang_version=24.3.3" >> $GITHUB_ENV
-        echo "erts_version=12.3.1" >> $GITHUB_ENV
-        echo "rebar3_version=3.18.0" >> $GITHUB_ENV
+      - run:  choco install curl
+      - run:  echo "elixir_version=1.13.4" >> $GITHUB_ENV
+      - run:  echo "erlang_version=24.3.3" >> $GITHUB_ENV
+      - run:  echo "erts_version=12.3.1" >> $GITHUB_ENV
+      - run:  echo "rebar3_version=3.18.0" >> $GITHUB_ENV
 
 
   create_elixir_package:
