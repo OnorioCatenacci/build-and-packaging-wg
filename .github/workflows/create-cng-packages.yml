@@ -14,8 +14,9 @@ jobs:
     runs-on: windows-latest
     steps:
       # We need curl to fetch the precompiled.zip file.
-      choco install curl
-      curl -O https://github.com/elixir-lang/elixir/releases/download/v1.13.4/Precompiled.zip
+      run:
+        choco install curl
+        curl -O https://github.com/elixir-lang/elixir/releases/download/v1.13.4/Precompiled.zip
 
 
   create_erlang_release:
